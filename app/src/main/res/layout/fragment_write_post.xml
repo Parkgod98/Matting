@@ -11,6 +11,7 @@
         android:id="@+id/postTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:hint="제목을 입력하세요" />
 
     <!-- 게시글 내용 입력 -->
@@ -20,7 +21,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:hint="내용을 입력하세요"
+        android:background="@drawable/edittext_border"
         android:gravity="top"
+        android:layout_marginBottom="8dp"
         android:inputType="textMultiLine" />
 
     <!-- 게시글 이미지 선택 -->

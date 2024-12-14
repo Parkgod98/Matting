@@ -4,8 +4,6 @@
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">#BB2649</item>
         <item name="colorSecondary">#EED9E0</item>
-<!--        <item name="android:windowBackground">@color/background_color</item>-->
-<!--        <item name="colorPrimaryVariant">@color/your_primary_variant</item>-->
     </style>
 
     <style name="Theme._2024pj" parent="Base.Theme._2024pj" />

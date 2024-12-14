@@ -11,8 +11,7 @@
         android:layout_height="wrap_content"
         android:hint="Search followers"
         android:padding="10dp"
-        android:layout_margin="10dp"
-        android:background="@android:drawable/edit_text" />
+        android:layout_margin="10dp" />
 
     <!-- RecyclerView로 팔로워 목록 표시 -->
     <androidx.recyclerview.widget.RecyclerView

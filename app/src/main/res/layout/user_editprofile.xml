@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="Nickname:"
+            android:text="닉네임:"
             android:layout_marginEnd="8dp"
             android:gravity="center_vertical" />
 
@@ -60,7 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Enter your nickname" />
+            android:hint="닉네임을 입력하세요" />
     </LinearLayout>
     <Button
         android:id="@+id/buttonSave"

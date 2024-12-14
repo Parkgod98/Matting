@@ -13,12 +13,11 @@
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="end"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="8dp"
             android:gravity="end"
             android:src="@drawable/default_profile_image" />
         <!-- 툴바 오른쪽에 숫자를 표시할 TextView -->
