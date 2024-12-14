@@ -14,13 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,9 +67,6 @@ public class CommunityActivity extends AppCompatActivity {
 
         // Firestore에서 데이터를 불러오는 메소드 호출
         loadPostsFromFirestore();
-
-//        // Intent에서 새로운 게시물 데이터 가져오기
-//        Intent intent = getIntent();
 
         // BottomNavigationView 초기화
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
@@ -111,7 +112,13 @@ public class CommunityActivity extends AppCompatActivity {
     }
 
     private void loadPostsFromFirestore() {
-        communityRef.get()
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String today = sdf.format(Calendar.getInstance().getTime());
+
+        communityRef
+                .whereGreaterThanOrEqualTo("date", today)
+                .orderBy("date", Query.Direction.ASCENDING) // 가까운 시간 순으로 정렬
+                .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         communityList.clear(); // 기존 리스트 비우기

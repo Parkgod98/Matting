@@ -160,7 +160,8 @@ public class Main_CreateMattingFragment extends Fragment {
 
         // DatePickerDialog 생성 및 표시
         DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), (view, selectedYear, selectedMonth, selectedDay) -> {
-            String formattedDate = selectedYear + "년 " + (selectedMonth + 1) + "월 " + selectedDay + "일";
+            // 선택한 날짜를 YYYY-MM-DD 형식으로 변환
+            String formattedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay);
             etDate.setText(formattedDate); // 선택한 날짜를 EditText에 설정
         }, year, month, day);
 
