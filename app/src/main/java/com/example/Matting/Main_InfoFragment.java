@@ -18,10 +18,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Main_InfoFragment extends Fragment {
@@ -193,9 +196,15 @@ public class Main_InfoFragment extends Fragment {
 
     // 현재 식당의 다른 모임 글
     private void otherMatting() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String today = sdf.format(Calendar.getInstance().getTime());
+
         // Firestore에서 "restaurant" 필드가 현재 식당 이름과 일치하는 문서 가져오기
         firestore.collection("community")
+                .whereGreaterThanOrEqualTo("date", today)
                 .whereEqualTo("restaurant", getArguments().getString("title")) // "restaurant" 필드와 일치하는 데이터만 가져오기
+                .orderBy("date", Query.Direction.ASCENDING) // 가까운 시간 순으로 정렬
+                .orderBy("restaurant")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

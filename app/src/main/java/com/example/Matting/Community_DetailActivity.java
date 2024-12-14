@@ -38,6 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
@@ -46,7 +47,9 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.Marker;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Community_DetailActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -302,15 +305,6 @@ public class Community_DetailActivity extends AppCompatActivity implements OnMap
                 finish();
             }
         });
-/*
-        // 이미지 클릭 시 전체 화면으로 이미지 보기
-        ImageView thumbnailImage = findViewById(R.id.thumbnail_image);
-        thumbnailImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showFullScreenImage(R.drawable.food);  // 확대할 이미지 리소스를 전달
-            }
-        });*/
     }
 
 
@@ -366,12 +360,15 @@ public class Community_DetailActivity extends AppCompatActivity implements OnMap
         mRecyclerView = findViewById(R.id.recyclerView);
         mList = new ArrayList<>();
 
-        // 현재 게시물의 documentId 가져오기 (Intent로 전달받았다고 가정)
-//        String currentTitle = getIntent().getStringExtra("documentId");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String today = sdf.format(Calendar.getInstance().getTime());
 
         // Firestore에서 "restaurant" 필드가 현재 식당 이름과 일치하는 문서 가져오기
         firestore.collection("community")
+                .whereGreaterThanOrEqualTo("date", today)
                 .whereEqualTo("restaurant", restaurant) // "restaurant" 필드와 일치하는 데이터만 가져오기
+                .orderBy("date", Query.Direction.ASCENDING) // 가까운 시간 순으로 정렬
+                .orderBy("restaurant")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
