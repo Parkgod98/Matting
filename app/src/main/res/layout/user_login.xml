@@ -10,6 +10,12 @@
         android:orientation="vertical"
         android:padding="8dp"
         android:gravity="center">
+        <ImageView
+            android:padding="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/feed_ic_matting" />
         <!-- 이메일 입력 -->
         <EditText
             android:id="@+id/idInput"
@@ -38,8 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="로그인"
-            android:textColor="#FFF"
-            android:padding="16dp" />
+            android:textColor="#FFF" />
 
         <!-- 회원가입 버튼 -->
         <Button
@@ -48,8 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="회원가입"
-            android:textColor="#FFF"
-            android:padding="16dp" />
+            android:textColor="#FFF" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
