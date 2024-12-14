@@ -20,5 +20,3 @@
   - Compile SDK: 34
   - Min SDK: 28
   - Target SDK: 34
-
----
