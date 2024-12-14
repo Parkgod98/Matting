@@ -46,6 +46,9 @@ public class User_EditProfileActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼 활성화
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+        getSupportActionBar().setTitle(""); // 액션바 제목 비우기 또는 원하는 값으로 설정
+
         user = new User(this);
         // 프로필 이미지 업로드
         profileImageButton = findViewById(R.id.profile_image_button);
