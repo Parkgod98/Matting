@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -38,7 +40,7 @@ import java.util.Map;
 
 public class WritePostFragment extends Fragment {
 
-    private EditText postTitle;
+    private ImageView previewImageView;
     private EditText postContent;
     private Uri selectedImageUri;
 
@@ -47,6 +49,8 @@ public class WritePostFragment extends Fragment {
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == getActivity().RESULT_OK && result.getData() != null) {
                     selectedImageUri = result.getData().getData();
+                    previewImageView.setVisibility(View.VISIBLE); // 미리보기 표시
+                    previewImageView.setImageURI(selectedImageUri); // 선택된 이미지 설정
                     Toast.makeText(getActivity(), "이미지가 선택되었습니다.", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -58,7 +62,11 @@ public class WritePostFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_write_post, container, false);
 
-        postTitle = view.findViewById(R.id.postTitle);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24); // 뒤로가기 아이콘 설정 (res/drawable에 아이콘 추가 필요)
+        toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed()); // 뒤로가기 버튼 클릭 시
+
+        previewImageView = view.findViewById(R.id.previewImageView);
         postContent = view.findViewById(R.id.postContent);
         Button selectImageButton = view.findViewById(R.id.selectImageButton);
         Button uploadPostButton = view.findViewById(R.id.uploadPostButton);
@@ -89,13 +97,12 @@ public class WritePostFragment extends Fragment {
     }
 
     private void uploadPost() {
-        String title = postTitle.getText().toString().trim();
         String content = postContent.getText().toString().trim();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String userId = (auth.getCurrentUser() != null) ? auth.getCurrentUser().getUid() : "anonymous"; // 로그인된 사용자 ID 또는 기본값
 
-        if (title.isEmpty() || content.isEmpty() || selectedImageUri == null) {
-            Toast.makeText(requireContext(), "모든 필드를 입력하세요.", Toast.LENGTH_SHORT).show();
+        if (content.isEmpty() || selectedImageUri == null) {
+            Toast.makeText(requireContext(), "내용과 이미지를 입력하세요.", Toast.LENGTH_SHORT).show();
             return;
         }
         String encodedImage = encodeImageToBase64(selectedImageUri);
@@ -144,9 +151,17 @@ public class WritePostFragment extends Fragment {
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-            byte[] imageBytes = byteArrayOutputStream.toByteArray();
+            int quality = 100; // 초기 품질 설정
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayOutputStream);
 
+            // 용량 제한 (900KB 초과 시 품질 감소)
+            while (byteArrayOutputStream.toByteArray().length > 900 * 1024) { // 900kB 초과
+                quality -= 5; // 품질을 5씩 낮춤
+                byteArrayOutputStream.reset(); // 스트림 초기화
+                bitmap.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayOutputStream);
+            }
+
+            byte[] imageBytes = byteArrayOutputStream.toByteArray();
             return Base64.encodeToString(imageBytes, Base64.DEFAULT);
         } catch (Exception e) {
             e.printStackTrace();
