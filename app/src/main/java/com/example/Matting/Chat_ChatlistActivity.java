@@ -113,9 +113,6 @@ public class Chat_ChatlistActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        ImageButton addButton = findViewById(R.id.btn_add_chat);
-        //addButton.setOnClickListener(v -> showAddChatRoomDialog());
-
         // BottomNavigationView 초기화
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_chat); // 채팅 탭 선택
