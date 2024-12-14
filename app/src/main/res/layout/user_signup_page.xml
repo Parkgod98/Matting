@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -23,6 +24,7 @@
         android:layout_height="wrap_content"
         android:hint="이메일"
         android:inputType="textEmailAddress"
+        android:background="@drawable/edittext_border"
         android:layout_marginBottom="8dp" />
 
     <!-- 비밀번호 입력 -->
@@ -32,6 +34,7 @@
         android:layout_height="wrap_content"
         android:hint="비밀번호"
         android:inputType="textPassword"
+        android:background="@drawable/edittext_border"
         android:layout_marginBottom="8dp" />
 
     <!-- 비밀번호 확인 입력 -->
@@ -41,6 +44,7 @@
         android:layout_height="wrap_content"
         android:hint="비밀번호 확인"
         android:inputType="textPassword"
+        android:background="@drawable/edittext_border"
         android:layout_marginBottom="16dp" />
 
     <!-- 회원가입 버튼 -->

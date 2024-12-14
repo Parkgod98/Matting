@@ -46,6 +46,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         holder.tvAddress.setText(main.getAddress());
         holder.tvRating.setText(String.valueOf(main.getRating()));
 
+        // 이미지 초기화
+        holder.image1.setImageResource(R.drawable.ic_image); // 기본 이미지 설정
+        holder.image2.setImageResource(R.drawable.ic_image);
+        holder.image3.setImageResource(R.drawable.ic_image);
+
         String address = main.getAddress();
 
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();

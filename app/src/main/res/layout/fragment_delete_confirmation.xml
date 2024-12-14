@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="게시글을 삭제하시겠습니까?"
         android:textSize="16sp"
+        android:layout_marginBottom="8dp"
         android:layout_gravity="center" />
 
     <LinearLayout
@@ -24,6 +25,7 @@
             android:id="@+id/confirmButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
             android:text="예" />
 
         <Button

@@ -174,15 +174,29 @@ public class Main_ReviewWriteFragment extends Fragment {
                 });
     }
 
+    private Bitmap resizeBitmap(Bitmap bitmap, int maxWidth, int maxHeight) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxWidth;
+            height = (int) (maxWidth / bitmapRatio);
+        } else {
+            height = maxHeight;
+            width = (int) (maxHeight * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(bitmap, width, height, true);
+    }
+
+
     private String encodeImageToBase64(Uri imageUri) {
         try {
             ContentResolver contentResolver = requireContext().getContentResolver();
             InputStream inputStream = contentResolver.openInputStream(imageUri);
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 
-//            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-//            byte[] imageBytes = byteArrayOutputStream.toByteArray();
+            Bitmap resizedBitmap = resizeBitmap(bitmap, 1024, 1024); // 최대 해상도 1024x1024로 제한
 
             // 이미지 압축 및 Base64 인코딩
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -192,7 +206,7 @@ public class Main_ReviewWriteFragment extends Fragment {
                 // 1MB 이하가 될 때까지 품질을 낮춤
                 quality -= 5;
                 baos.reset();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
             }
             byte[] imageBytes = baos.toByteArray();
 

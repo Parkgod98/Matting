@@ -64,7 +64,7 @@
                 android:hint="식당에 대한 솔직한 리뷰를 남겨주세요."
                 android:gravity="top"
                 android:padding="8dp"
-                android:background="@android:drawable/editbox_background"
+                android:background="@drawable/edittext_border"
                 android:layout_marginTop="16dp"
                 android:minHeight="120dp" />
 

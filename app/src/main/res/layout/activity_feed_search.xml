@@ -6,17 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="53dp"
         android:orientation="horizontal">
-
-
-
 
         <!-- 검색창 -->
         <EditText
@@ -28,7 +21,6 @@
             android:hint="Search"
             android:inputType="text"
             android:padding="10dp" />
-
 
         <!-- 돋보기 검색 버튼 -->
         <ImageButton
@@ -51,7 +43,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="16dp"/>
-
 
 
 </LinearLayout>

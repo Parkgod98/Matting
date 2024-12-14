@@ -1,6 +1,6 @@
 <!-- res/drawable/message_background.xml -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#6200EE"/> <!-- 말풍선 색상 -->
+    <solid android:color="#BB2649"/> <!-- 말풍선 색상 -->
     <corners android:radius="16dp"/>
     <padding
         android:left="8dp"
